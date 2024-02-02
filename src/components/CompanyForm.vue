@@ -31,7 +31,7 @@ const router = useRouter();
 const companyStore = useCompanyStore();
 
 const sendCompanyTitle = async () => {
-  await companyStore.setCompanyName(companyName.value);
+  await companyStore.setCompanyData(companyName.value);
   router.push(`/companies/${companyStore.companyId}`);
 };
 </script>
