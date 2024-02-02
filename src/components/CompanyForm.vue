@@ -24,12 +24,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useCompanyStore } from "../stores/company";
+import { useRouter } from "vue-router";
 
 const companyName = ref("");
-
+const router = useRouter();
 const companyStore = useCompanyStore();
 
 const sendCompanyTitle = async () => {
-  await companyStore.setCompanyName(companyName.value);
+  await companyStore.setCompanyData(companyName.value);
+  router.push(`/companies/${companyStore.companyId}`);
 };
 </script>

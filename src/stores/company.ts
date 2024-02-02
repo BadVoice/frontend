@@ -1,16 +1,28 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 
-import { createCompany } from "@/services/api/company/companyAPI";
+import {
+  createCompanyService,
+  getCompanyService,
+} from "@/services/api/company/companyAPI";
 
 export const useCompanyStore = defineStore("companyName", () => {
-  const companyName = ref("");
+  const companyName = ref("" as string);
+  const companyId = ref(0 as number);
 
-  async function setCompanyName(name: string) {
-    companyName.value = name;
-    await createCompany(name);
-    console.log(name);
+  async function setCompanyData(name: string) {
+    const response = await createCompanyService(name);
+    companyId.value = response.id;
+
+    return response;
   }
 
-  return { companyName, setCompanyName };
+  async function getCompanyData(id: number) {
+    const response = await getCompanyService(id);
+    companyId.value = response.id;
+    companyName.value = response.name;
+    return response;
+  }
+
+  return { companyName, companyId, setCompanyData, getCompanyData };
 });
