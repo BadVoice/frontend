@@ -16,7 +16,41 @@ export const createCompanyService = async (name: string) => {
 
 export const getCompanyService = async (id: number) => {
   const res = await axios
-    .get<ICompany>(`${import.meta.env.VITE_API_URL}/companies/${id}`)
+    .get(`${import.meta.env.VITE_API_URL}/companies/${id}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+  return res;
+};
+
+export const createChannelService = async (
+  company_id: number,
+  app_name: string,
+  channel_name: string
+) => {
+  const res = await axios
+    .post(`${import.meta.env.VITE_API_URL}/channels`, {
+      company_id,
+      app_name,
+      channel_name,
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+  return res;
+};
+
+export const getChannelsByCompanyIdService = async (company_id: number) => {
+  const res = await axios
+    .get(`${import.meta.env.VITE_API_URL}/channels?companyId=${company_id}`)
     .then((response) => {
       return response.data;
     })
