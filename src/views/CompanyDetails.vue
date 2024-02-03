@@ -58,41 +58,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="p-4">
-      <div class="mb-4">
-        <label for="channel" class="block text-gray-700 font-bold mb-2"
-          >Выберите канал:</label
-        >
-        <select
-          v-model="selectedChannelId"
-          name="channel"
-          id="channel"
-          class="block w-full bg-white border border-gray-300 rounded px-3 py-2"
-        >
-          <option v-for="channel in channels" :value="channel.id">
-            {{ channel.app_name }}
-          </option>
-        </select>
-      </div>
-      <div class="mb-4">
-        <label for="message" class="block text-gray-700 font-bold mb-2"
-          >Сообщение:</label
-        >
-        <textarea
-          v-model="messageText"
-          name="message"
-          id="message"
-          class="block w-full bg-white border border-gray-300 rounded px-3 py-2"
-        ></textarea>
-      </div>
-      <button
-        @click="addMessage"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Сохранить сообщение
-      </button>
-    </div> -->
     <button
       class="bg-red-500 text-white font-bold py-2 px-4 rounded"
       @click="openModal"
