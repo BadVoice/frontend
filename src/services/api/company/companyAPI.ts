@@ -60,3 +60,17 @@ export const getChannelsByCompanyIdService = async (company_id: number) => {
 
   return res;
 };
+
+export const sendMessageService = async (channelId: number, text: string) => {
+  return axios
+    .post(`${import.meta.env.VITE_API_URL}/messages`, {
+      channel_id: channelId,
+      text,
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+};

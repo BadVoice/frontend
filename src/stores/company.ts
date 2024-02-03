@@ -1,11 +1,13 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import axios from "axios";
 
 import {
   createCompanyService,
   getCompanyService,
   createChannelService,
   getChannelsByCompanyIdService,
+  sendMessageService,
 } from "@/services/api/company/companyAPI";
 import type { IChannel } from "@/stores/types/types";
 
@@ -32,6 +34,12 @@ export const useCompanyStore = defineStore("companyStore", () => {
 
 export const useChannelStore = defineStore("channelStore", () => {
   const channels = ref<IChannel[]>([]);
+
+  async function createChannelForm(channelId: number, text: string) {
+    const response = await sendMessageService(channelId, text);
+    console.log(response);
+  }
+
   async function createChannel(
     channel_name: string,
     app_name: string,
@@ -57,5 +65,5 @@ export const useChannelStore = defineStore("channelStore", () => {
     return fetchedChannels;
   }
 
-  return { createChannel, getChannels };
+  return { createChannel, createChannelForm, getChannels };
 });
