@@ -61,16 +61,51 @@ export const getChannelsByCompanyIdService = async (company_id: number) => {
   return res;
 };
 
-export const sendMessageService = async (channelId: number, text: string) => {
-  return axios
-    .post(`${import.meta.env.VITE_API_URL}/messages`, {
+interface Button {
+  content: string;
+  type: string;
+}
+
+export const sendMessageService = async (
+  channelId: number,
+  text: string,
+  keyboardType?: string,
+  buttons: { [keyboardType: string]: Button[] } = {}
+) => {
+  const messageResponse = await axios.post(
+    `${import.meta.env.VITE_API_URL}/messages`,
+    {
       channel_id: channelId,
       text,
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
+    }
+  );
+
+  const messageId = messageResponse.data.id;
+  const keyboardIds = [];
+
+  for (const keyboardType in buttons) {
+    const keyboardResponse = await axios.post(
+      ` ${import.meta.env.VITE_API_URL}/keyboards`,
+      {
+        message_id: messageId,
+        type: keyboardType,
+      }
+    );
+
+    const keyboardId = keyboardResponse.data.id;
+    keyboardIds.push(keyboardId);
+
+    if (buttons[keyboardType]) {
+      for (const button of buttons[keyboardType]) {
+        const buttonResponse = await axios.post(
+          `${import.meta.env.VITE_API_URL}/buttons`,
+          {
+            keyboard_id: keyboardId,
+            content: button.content,
+            type: button.type,
+          }
+        );
+      }
+    }
+  }
 };

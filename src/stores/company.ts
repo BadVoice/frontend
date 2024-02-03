@@ -32,12 +32,27 @@ export const useCompanyStore = defineStore("companyStore", () => {
   return { companyName, companyId, setCompanyData, getCompanyData };
 });
 
+interface Button {
+  content: string;
+  type: string;
+}
+
 export const useChannelStore = defineStore("channelStore", () => {
   const channels = ref<IChannel[]>([]);
 
-  async function createChannelForm(channelId: number, text: string) {
-    const response = await sendMessageService(channelId, text);
-    console.log(response);
+  async function createChannelForm(
+    channelId: number,
+    text: string,
+    keyboardType?: string,
+    buttons: { [keyboardType: string]: Button[] } = {}
+  ) {
+    console.log(buttons);
+    const response = await sendMessageService(
+      channelId,
+      text,
+      keyboardType,
+      buttons
+    );
   }
 
   async function createChannel(
