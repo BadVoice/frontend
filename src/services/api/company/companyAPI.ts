@@ -61,6 +61,26 @@ export const getChannelsByCompanyIdService = async (company_id: number) => {
   return res;
 };
 
+export const getChannelByIdService = async (
+  company_id: number,
+  channel_id: number
+) => {
+  const res = await axios
+    .get(
+      `${
+        import.meta.env.VITE_API_URL
+      }/companies/${company_id}/channels/${channel_id}`
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+
+  return res;
+};
+
 interface Button {
   content: string;
   type: string;
@@ -69,7 +89,6 @@ interface Button {
 export const sendMessageService = async (
   channelId: number,
   text: string,
-  keyboardType?: string,
   buttons: { [keyboardType: string]: Button[] } = {}
 ) => {
   const messageResponse = await axios.post(
