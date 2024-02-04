@@ -8,6 +8,7 @@ import {
   createChannelService,
   getChannelsByCompanyIdService,
   sendMessageService,
+  getChannelByIdService,
 } from "@/services/api/company/companyAPI";
 import type { IChannel } from "@/stores/types/types";
 
@@ -29,7 +30,18 @@ export const useCompanyStore = defineStore("companyStore", () => {
     return response;
   }
 
-  return { companyName, companyId, setCompanyData, getCompanyData };
+  async function getChannelData(companyId: number, channelId: number) {
+    const response = await getChannelByIdService(companyId, channelId);
+    return response;
+  }
+
+  return {
+    companyName,
+    companyId,
+    setCompanyData,
+    getCompanyData,
+    getChannelData,
+  };
 });
 
 interface Button {
@@ -43,16 +55,10 @@ export const useChannelStore = defineStore("channelStore", () => {
   async function createChannelForm(
     channelId: number,
     text: string,
-    keyboardType?: string,
     buttons: { [keyboardType: string]: Button[] } = {}
   ) {
     console.log(buttons);
-    const response = await sendMessageService(
-      channelId,
-      text,
-      keyboardType,
-      buttons
-    );
+    const response = await sendMessageService(channelId, text, buttons);
   }
 
   async function createChannel(

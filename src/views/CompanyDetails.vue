@@ -54,6 +54,11 @@
             <p class="text-gray-600 font-bold">
               Мессенджер: {{ channel.app_name }}
             </p>
+            <router-link
+              :to="`/companies/${companyId}/channels/${channel.id}`"
+              class="text-indigo-600 font-bold"
+              >Перейти</router-link
+            >
           </div>
         </div>
       </div>

@@ -232,10 +232,8 @@ const sendForm = async () => {
     if (messageText.value.length <= maxMessageLength) {
       const channel_id = selectedChannelId.value;
       const text = messageText.value;
-      const keyboardType = selectedkeyboardType.value;
-      const buttonsList = Object.values(buttons.value).flat();
       await channelsStore
-        .createChannelForm(channel_id, text, keyboardType, buttons.value)
+        .createChannelForm(channel_id, text, buttons.value)
         .catch((err) => {
           if (err.response && err.response.status === 400) {
             error.value = "Ошибка: Вы ввели слишком большое сообщение.";
