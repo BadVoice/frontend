@@ -6,9 +6,16 @@ export interface ICompany {
 export interface IChannel {
   id: number;
   company_id: number;
-  app_name: string;
+  app_name: IChannelType;
   channel_name: string;
   messages: IMessage[];
+}
+
+export enum IChannelType {
+  SMS = "SMS",
+  Telegram = "Telegram",
+  WhatsApp = "WhatsApp",
+  Vkontakte = "Vkontakte",
 }
 
 export interface IMessage {

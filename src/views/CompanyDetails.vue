@@ -107,7 +107,12 @@ const companyId: Ref<number> = ref(0);
 
 const channelName: Ref<string> = ref("");
 const selectedChannelType = ref("");
-const channelTypes = computed(() => ["Telegram", "WhatsApp", "Vkontakte"]);
+const channelTypes = computed(() => [
+  "Telegram",
+  "WhatsApp",
+  "Vkontakte",
+  "SMS",
+]);
 
 const channels = ref<IChannel[]>([]);
 const error = ref("");
